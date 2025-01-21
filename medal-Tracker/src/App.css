@@ -1,0 +1,18 @@
+.header {
+  width: 80%;
+  height: 350px;
+  background-color: green;
+  display: flex;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.title {
+  margin: 4% auto 0 auto;
+  font-size: 300%;
+}
+
+.input-Box {
+  margin: 20% auto 0 auto;
+  background-color: red;
+}
