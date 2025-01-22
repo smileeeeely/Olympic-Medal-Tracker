@@ -1,22 +1,30 @@
 import React from "react";
 import "./App.css";
 
-function Header() {
+const Header = () => {
   return (
-    <>
       <div className="header">
-        <div>
           <div className="title">2024 파리 올림픽</div>
-          {/* <input className="input-Box"></input> */}
-          <ul>
-            <input className="input-Box"></input>
-            <input></input>
-            <input></input>
-            <input></input>
-          </ul>
-        </div>
+          <form className="input-form">
+            <label>
+              국가: <input className="input-Box" type="text"/>
+            </label>
+            <label>
+              금메달: <input className="input-Box" type="number" defaultValue={0}/>
+            </label>
+            <label>
+              은메달: <input className="input-Box" type="number" defaultValue={0}/>
+            </label>
+            <label>
+              동메달: <input className="input-Box" type="number" defaultValue={0}/>
+            </label>
+          </form>
+          <form className="button-form">
+            <button className="button"/>
+            <button className="button"/>
+          </form> 
+            
       </div>
-    </>
   );
 }
 
