@@ -3,7 +3,7 @@ import "./App.css";
 
 const App = () => {
   //여기는 js!
-  const [contries, setContries] = useState([
+  const [list, setList] = useState([
     {
       id: new Date().getTime(),
       contry: "cancada",
@@ -29,37 +29,36 @@ const App = () => {
 
   const addContryName = (e) => {
     const contry = e.target.value;
-    setContries({ ...contries, contry });
+    setList({ ...list, contry });
   };
 
   const addGoldMedal = (e) => {
     const goldMedal = Number(e.target.value);
-    setContries({ ...contries, goldMedal });
+    setList({ ...list, goldMedal });
   };
 
   const addSilverMedal = (e) => {
     const silverMedal = Number(e.target.value);
-    setContries({ ...contries, silverMedal });
+    setList({ ...list, silverMedal });
   };
 
   const addBronzeMedal = (e) => {
     const bronzeMedal = Number(e.target.value);
-    setContries({ ...contries, bronzeMedal });
+    setList({ ...list, bronzeMedal });
   };
-  console.log(contries);
+  console.log(list);
 
   const clickEvent = (e) => {
     e.preventDefault();
 
-    const newContry = {
+    const newList = {
       id: new Date().getTime(),
       contry: contry,
       goldMedal: goldMedal,
       silverMedal: silverMedal,
       bronzeMedal: bronzeMedal, 
     }
-    // console.log("newContry", newContry);
-    setContries([...contries, newContry]);
+    setList([...list, newList]);
 
   };
 
@@ -120,8 +119,9 @@ const App = () => {
         </form>
       </div>
 
-      {contries.map(function (list) {
-        return <List key={list.id} list={list}/>;
+      {list.map(function (listData) {
+        console.log("listData => ",listData);
+        return <List key={listData.id} listData={listData}/>;
       })}
     </>
   );
@@ -129,10 +129,10 @@ const App = () => {
 
 export default App;
 
-const List = ({list}) => {
+const List = ({listData}) => {
   return (
   <div className="listStyle">
-    {list.contry}  {list.goldMedal} {list.silverMedal}  {list.bronzeMedal}
+    {listData.contry}  {listData.goldMedal} {listData.silverMedal}  {listData.bronzeMedal}
   </div>
   );
 };
