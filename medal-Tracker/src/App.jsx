@@ -3,84 +3,92 @@ import "./App.css";
 
 const App = () => {
   //여기는 js!
-  const [contry, setContry] = useState("");
+  const [countryName, setCountryName] = useState("");
   const [goldMedal, setGoldMedal] = useState(0);
   const [silverMedal, setSilverMedal] = useState(0);
   const [bronzeMedal, setBronzeMedal] = useState(0);
 
-  const [list, setList] = useState([
+  const [countries, setCountries] = useState([
     {
       id: new Date().getTime(),
-      contry: "cancada",
+      countryName: "cancada",
       goldMedal: 1,
       silverMedal: 2,
       bronzeMedal: 3,
     },
     {
       id: new Date().getTime() + 1,
-      contry: "korea",
+      countryName: "korea",
       goldMedal: 3,
       silverMedal: 4,
       bronzeMedal: 2,
     },
     {
       id: new Date().getTime() + 2,
-      contry: "japan",
+      countryName: "japan",
       goldMedal: 0,
       silverMedal: 1,
       bronzeMedal: 0,
     },
   ]);
 
-  const addNewList = (e) => {
+  const addNewCountry = (e) => {
     e.preventDefault();
-    if (!contry) return alert("국가를 입력해주세요.");
-    const res = list.filter((it) => it.contry.includes(contry));
+    if (!countryName) return alert("국가를 입력해주세요.");
+    const res = countries.filter((it) => it.countryName.includes(countryName));
     if (res[0]) {
-      const contry = res[0].contry;
       return alert("이미 등록된 국가입니다.");
     }
 
-    const newList = {
+    const newCountry = {
       id: new Date().getTime(),
-      contry: contry,
+      countryName: countryName,
       goldMedal: goldMedal,
       silverMedal: silverMedal,
       bronzeMedal: bronzeMedal,
     };
-    setList([...list, newList]);
-    setContry("");
-    console.log("addNewList => ", newList);
+    setCountries([...countries, newCountry]);
+    setCountryName("");
+    console.log("addNewCountry => ", newCountry);
   };
 
-  const updateList = (e) => {
+  const updateCountry = (e) => {
     e.preventDefault();
+    if (!countryName) return alert("국가를 입력해주세요.");
 
-    const newList = {
+    const newCountry = {
       id: new Date().getTime(),
-      contry: contry,
+      countryName: countryName,
       goldMedal: goldMedal,
       silverMedal: silverMedal,
       bronzeMedal: bronzeMedal,
     };
-    setList([...list, newList]);
-    setContry("");
-    console.log("updateList => ", newList);
+    setCountries([...countries, newCountry]);
+    setCountryName("");
+    console.log("updateCountry => ", newCountry);
   };
+
+  const deleteCountry = (countryName) => {
+    const filteredCountries = countries.filter((country) => country.countryName !== countryName);
+    console.log(filteredCountries);
+    {/* setContries([...contries, filteredContries]); */}
+    setCountries(filteredCountries);
+    console.log("filtedredCountries => ", filteredCountries);
+  }
 
   return (
     // 여기는 html!
     <>
       <div className="header">
         <h1 className="title">2024 파리 올림픽</h1>
-        <form onSubmit={addNewList} className="input-form">
+        <form onSubmit={addNewCountry} className="input-form">
           <label>
             국가:
             <input
               onChange={(e) => {
-                setContry(e.target.value);
+                setCountryName(e.target.value);
               }}
-              id="contryInput"
+              id="countryNameInput"
               className="input-Box"
               type="text"
             />
@@ -121,7 +129,7 @@ const App = () => {
           <button className="button" id="add_button">
             국가 추가
           </button>
-          <button onClick={updateList} className="button" id="update_button">
+          <button type="button" onClick={updateCountry} className="button" id="update_button">
             업데이트
           </button>
         </form>
@@ -129,9 +137,8 @@ const App = () => {
       
       {/* 리스트 렌더링 */}
       <div>
-        {list.map(function (listData) {
-          // console.log("listData => ",listData);
-          return <List key={listData.id} listData={listData} />;
+        {countries.map(function (countriesData) {
+          return <CountryList key={countriesData.id} countriesData={countriesData} deleteCountry={deleteCountry} />;
         })}
       </div>
     </>
@@ -140,11 +147,11 @@ const App = () => {
 
 export default App;
 
-const List = ({ listData }) => {
+const CountryList = ({ countriesData, deleteCountry }) => {
   return (
-    <div className="listStyle">
-      {listData.contry} {listData.goldMedal} {listData.silverMedal}{" "}
-      {listData.bronzeMedal}
+    <div className="contry-list-style">
+      {countriesData.contryName} {countriesData.goldMedal} {countriesData.silverMedal}{" "}
+      {countriesData.bronzeMedal} <button type="button" onClick={() => deleteCountry(countriesData.countryName)}>삭제</button>
     </div>
   );
 };
