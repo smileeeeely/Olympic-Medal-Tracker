@@ -11,7 +11,7 @@ const App = () => {
   const [countries, setCountries] = useState([
     {
       id: new Date().getTime(),
-      countryName: "cancada",
+      countryName: "canada",
       goldMedal: 1,
       silverMedal: 2,
       bronzeMedal: 3,
@@ -149,8 +149,8 @@ export default App;
 
 const CountryList = ({ countriesData, deleteCountry }) => {
   return (
-    <div className="contry-list-style">
-      {countriesData.contryName} {countriesData.goldMedal} {countriesData.silverMedal}{" "}
+    <div className="country-list-style">
+      {countriesData.countryName} {countriesData.goldMedal} {countriesData.silverMedal}{" "}
       {countriesData.bronzeMedal} <button type="button" onClick={() => deleteCountry(countriesData.countryName)}>삭제</button>
     </div>
   );
