@@ -15,13 +15,15 @@ const App = () => {
   const addNewCountry = (e) => {
     e.preventDefault();
     if (!countryName) return alert("국가를 입력해주세요.");
-    const res = countries.filter((it) => it.countryName.includes(countryName));
-    if (res[0]) return alert("이미 등록된 국가입니다.");
+    // const res = countries.filter((it) => it.countryName.includes(countryName));
+    if (countries.some((country) => country.countryName === countryName)) {
+      return alert("이미 등록된 국가입니다.");
+    }
     if (goldMedal < 0 || silverMedal < 0 || bronzeMedal < 0)
       return alert("메달은 0개 이상부터 등록할 수 있습니다.");
 
     const newCountry = {
-      id: new Date().getTime(),
+      id: crypto.randomUUID(),
       countryName: countryName,
       goldMedal: goldMedal,
       silverMedal: silverMedal,
@@ -44,7 +46,7 @@ const App = () => {
     const updatedCountries = countries.map((country) => {
       if (country.countryName === countryName) {
         return {
-          id: new Date().getTime(),
+          id: crypto.randomUUID(),
           countryName: countryName,
           goldMedal: goldMedal,
           silverMedal: silverMedal,
@@ -80,6 +82,7 @@ const App = () => {
         setGoldMedal={setGoldMedal}
         setSilverMedal={setSilverMedal}
         setBronzeMedal={setBronzeMedal}
+        countryName={countryName}
       />
       <div>
         {countries
@@ -88,7 +91,11 @@ const App = () => {
           })
           .map(function (inputData) {
             return (
-              <RenderList inputData={inputData} deleteCountry={deleteCountry} />
+              <RenderList
+                key={inputData.id}
+                inputData={inputData}
+                deleteCountry={deleteCountry}
+              />
             );
           })}
       </div>

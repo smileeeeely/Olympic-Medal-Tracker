@@ -6,7 +6,8 @@ const MedalForm = ({
   setCountryName,
   setGoldMedal,
   setSilverMedal,
-  setBronzeMedal
+  setBronzeMedal,
+  countryName,
 }) => {
   return (
     // 여기는 html!
@@ -20,6 +21,7 @@ const MedalForm = ({
               onChange={(e) => {
                 setCountryName(e.target.value);
               }}
+              value={countryName}
               id="countryNameInput"
               className="input-Box"
               type="text"
