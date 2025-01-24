@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
+import RenderList from "./components/RenderList";
+import MedalForm from "./components/MedalForm";
 
 const App = () => {
   //여기는 js!
@@ -9,7 +11,7 @@ const App = () => {
   const [bronzeMedal, setBronzeMedal] = useState(0);
   const [countries, setCountries] = useState([]);
 
-/** 새로운 국가 추가 */
+  /** 새로운 국가 추가 */
   const addNewCountry = (e) => {
     e.preventDefault();
     if (!countryName) return alert("국가를 입력해주세요.");
@@ -68,78 +70,25 @@ const App = () => {
   return (
     // 여기는 html!
     <>
-      <div className="header">
-        <h1 className="title">2024 파리 올림픽</h1>
-        <form onSubmit={addNewCountry} className="input-form">
-          <label>
-            국가:
-            <input
-              onChange={(e) => {
-                setCountryName(e.target.value);
-              }}
-              id="countryNameInput"
-              className="input-Box"
-              type="text"
-            />
-          </label>
-          <label>
-            금메달:
-            <input
-              onChange={(e) => {
-                setGoldMedal(e.target.value);
-              }}
-              className="input-Box"
-              type="number"
-              defaultValue={0}
-            />
-          </label>
-          <label>
-            은메달:
-            <input
-              onChange={(e) => {
-                setSilverMedal(e.target.value);
-              }}
-              className="input-Box"
-              type="number"
-              defaultValue={0}
-            />
-          </label>
-          <label>
-            동메달:
-            <input
-              onChange={(e) => {
-                setBronzeMedal(e.target.value);
-              }}
-              className="input-Box"
-              type="number"
-              defaultValue={0}
-            />
-          </label>
-          <button className="button" id="add_button">
-            국가 추가
-          </button>
-          <button
-            type="button"
-            onClick={updateCountry}
-            className="button"
-            id="update_button"
-          >
-            업데이트
-          </button>
-        </form>
-      </div>
-
-      {/* 리스트 렌더링 */}
+      <MedalForm
+        addNewCountry={addNewCountry}
+        updateCountry={updateCountry}
+        countries={countries}
+        setCountryName={setCountryName}
+        RenderList={RenderList}
+        deleteCountry={deleteCountry}
+        setGoldMedal={setGoldMedal}
+        setSilverMedal={setSilverMedal}
+        setBronzeMedal={setBronzeMedal}
+      />
       <div>
         {countries
-          .sort((a, b) => { return b.goldMedal - a.goldMedal; })
+          .sort((a, b) => {
+            return b.goldMedal - a.goldMedal;
+          })
           .map(function (inputData) {
             return (
-              <RenderCountryList
-                inputData={inputData}
-                deleteCountry={deleteCountry}
-                countries={countries}
-              />
+              <RenderList inputData={inputData} deleteCountry={deleteCountry} />
             );
           })}
       </div>
@@ -148,21 +97,3 @@ const App = () => {
 };
 
 export default App;
-
-/** 국가 리스트 렌더링 */
-const RenderCountryList = ({ inputData, deleteCountry}) => {
-  return (
-    <div className="country-list-style">
-      <div> {inputData.countryName} </div>
-      <div> {inputData.goldMedal}</div>
-      <div>{inputData.silverMedal}</div>
-      <div>{inputData.bronzeMedal}</div>
-      <button
-        type="button"
-        onClick={() => deleteCountry(inputData.countryName)}
-      >
-        삭제
-      </button>
-    </div>
-  );
-};
