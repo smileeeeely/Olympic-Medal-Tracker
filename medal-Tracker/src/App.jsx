@@ -4,7 +4,6 @@ import RenderList from "./components/RenderList";
 import MedalForm from "./components/MedalForm";
 
 const App = () => {
-  //여기는 js!
   const [countryName, setCountryName] = useState("");
   const [goldMedal, setGoldMedal] = useState(0);
   const [silverMedal, setSilverMedal] = useState(0);
@@ -15,12 +14,12 @@ const App = () => {
   const addNewCountry = (e) => {
     e.preventDefault();
     if (!countryName) return alert("국가를 입력해주세요.");
-    // const res = countries.filter((it) => it.countryName.includes(countryName));
-    if (countries.some((country) => country.countryName === countryName)) {
+    if (countries.some((country) => country.countryName === countryName)){
       return alert("이미 등록된 국가입니다.");
     }
-    if (goldMedal < 0 || silverMedal < 0 || bronzeMedal < 0)
+    if (goldMedal < 0 || silverMedal < 0 || bronzeMedal < 0){
       return alert("메달은 0개 이상부터 등록할 수 있습니다.");
+    }
 
     const newCountry = {
       id: crypto.randomUUID(),
@@ -31,17 +30,18 @@ const App = () => {
     };
     setCountries([...countries, newCountry]);
     setCountryName("");
-    console.log("addNewCountry => ", newCountry);
   };
 
   /** 국가 업데이트 */
   const updateCountry = (e) => {
     e.preventDefault();
     if (!countryName) return alert("국가를 입력해주세요.");
-    const res = countries.filter((it) => it.countryName.includes(countryName));
-    if (!res[0]) return alert("등록되지 않은 국가입니다.");
-    if (goldMedal < 0 || silverMedal < 0 || bronzeMedal < 0)
+    if (countries.some((country) => country.countryName !== countryName)){
+      return alert("등록되지 않은 국가입니다.");
+    }
+    if (goldMedal < 0 || silverMedal < 0 || bronzeMedal < 0){
       return alert("메달은 0개 이상부터 등록할 수 있습니다.");
+    }
 
     const updatedCountries = countries.map((country) => {
       if (country.countryName === countryName) {
@@ -66,11 +66,9 @@ const App = () => {
       (country) => country.countryName !== countryName
     );
     setCountries(filteredCountries);
-    console.log("filtedredCountries => ", filteredCountries);
   };
 
   return (
-    // 여기는 html!
     <>
       <MedalForm
         addNewCountry={addNewCountry}

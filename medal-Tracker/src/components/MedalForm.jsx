@@ -10,7 +10,6 @@ const MedalForm = ({
   countryName,
 }) => {
   return (
-    // 여기는 html!
     <>
       <div className="header">
         <h1 className="title">2024 파리 올림픽</h1>
