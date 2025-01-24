@@ -1,4 +1,3 @@
-import React from "react";
 
 /** 국가 리스트 렌더링 */
 const RenderList = ({ inputData, deleteCountry}) => {
